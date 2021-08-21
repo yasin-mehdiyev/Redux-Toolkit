@@ -1,0 +1,38 @@
+.form {
+    text-align: center;
+}
+
+.formControl label {
+    display: block;
+}
+
+.formControl input, .formControl textarea {
+    width: 60%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.formControl input {
+    padding: 7px 5px;
+}
+
+.createBtn {
+    font: inherit;
+    cursor: pointer;
+    width: 60%;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+    background-color: rgb(9 131 232 / 98%)!important;
+    color: #fff!important;
+    border: 1px solid rgb(9 131 232 / 98%)!important;
+    margin-bottom: 15px;
+}
+
+.createBtn:hover {
+    background-color: rgb(9 131 232 / 98%)!important;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}

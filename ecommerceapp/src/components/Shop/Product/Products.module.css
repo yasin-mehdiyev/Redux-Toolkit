@@ -1,0 +1,19 @@
+.products h2 {
+  color: white;
+  margin: 2rem auto;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.products ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.btns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}

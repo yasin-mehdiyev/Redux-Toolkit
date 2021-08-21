@@ -1,0 +1,12 @@
+.notFound {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notFound h2 {
+    color: #ffffff;
+    font-size: 36px;
+    font-style: oblique;
+}

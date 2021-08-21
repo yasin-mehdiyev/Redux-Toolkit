@@ -1,0 +1,87 @@
+
+/* Wrapper CSS Style Section */
+
+.layout {
+    height: 100vh;
+}
+
+.layout .btns {
+    display: flex;
+    justify-content: center;
+    padding-top: 2%;
+}
+
+.layout .btns button{
+    margin-right: 10px;
+}
+
+/* Product Table CSS Section */
+
+.customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.customers td, .customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+.customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+.customers tr:hover {background-color: #ddd;}
+  
+.customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.customers tr td, .customers tr th {
+    text-align: center;
+}
+
+.customers tr td span {
+    margin-right: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.customers tr td span:first-child {
+    color: rgba(28, 82, 230, 0.911);
+}
+
+.customers tr td span:last-child {
+    color: rgba(228, 50, 6, 0.863);
+}
+
+/* Searching CSS Section */
+
+.searchForm .formControl {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.searchForm .formControl .formInput {
+    padding-right: 1.3rem;
+    padding-bottom: 1.3rem;
+}
+
+.searchForm .formControl .formInput label {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.searchForm .formControl .formInput input {
+    padding: 5px 15px;
+}
+
+.searchForm button {
+    display: block;
+    width: 100%;
+}

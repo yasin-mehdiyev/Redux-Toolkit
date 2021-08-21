@@ -1,0 +1,20 @@
+.wrapper{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper h2 {
+    color: #fff;
+    font-size: 36px;
+}
+
+.wrapper .buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper .buttons button {
+    margin-right: 7px;
+}
