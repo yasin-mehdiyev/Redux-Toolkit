@@ -40,7 +40,7 @@ const Add = () => {
     };
 
     dispatch(saveProduct(request, 'Post'));
-    history.push("/");
+    history.push("/cabinet");
     resetFields();
   };
 

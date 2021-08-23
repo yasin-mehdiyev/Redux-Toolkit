@@ -17,7 +17,7 @@ const Products = () => {
   }, [dispatch]);
 
   const backHomePage = () => {
-    history.replace('/');
+    history.replace('/cabinet');
   }
 
   const foodData =

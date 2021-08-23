@@ -18,3 +18,8 @@
 .wrapper .buttons button {
     margin-right: 7px;
 }
+
+.logout {
+    text-align: center;
+    margin: 15px 0px;
+}

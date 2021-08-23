@@ -8,6 +8,7 @@ import { getFilteredData, removeProduct } from "../../../../store/features/admin
 import { fetchFoodData } from "../../../../store/features/ui/uiAction";
 import { setCartData } from "../../../../store/features/cart/cartAction";
 import { setShowSearch } from "../../../../store/features/admin/adminSlice";
+import { logoutProcess } from "../../../../store/features/auth/authAction";
 
 const Admin = () => {
   const foods = useSelector((state) => state.ui.foods);
@@ -29,7 +30,8 @@ const Admin = () => {
     dispatch(getFilteredData(searchData,foods));
   }, [foods,dispatch])
 
-  const homePage = () => {
+  const handlerLogout = () => {
+    dispatch(logoutProcess());
     history.replace("/");
     if(isShowSearch === true) {
       dispatch(setShowSearch(false));
@@ -80,9 +82,6 @@ const Admin = () => {
     if(isEmptyFields) {
       dispatch(getFilteredData(searchData,foods));
     }
-    else{
-      console.log('it is empty');
-    }
 
     // setsearchData({});
 
@@ -94,7 +93,7 @@ const Admin = () => {
     <div className={classes.layout}>
       <div className={classes.btns}>
         <button onClick={adminAddPage}>Create New Product</button>
-        <button onClick={homePage}>Back to home page</button>
+        <button onClick={handlerLogout}>Logout</button>
       </div>
 
       <div
