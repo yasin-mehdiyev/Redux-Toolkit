@@ -2,13 +2,12 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { authProcess } from "../../../store/features/auth/authAction";
-import classes from "./Login.module.css";
+import classes from "../Login/Login.module.css";
 
-const Login = () => {
+const Signup = () => {
+
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -23,22 +22,20 @@ const Login = () => {
       email: enteredEmail,
       password: enteredPassword,
       returnSecureToken: true,
-    };
-
-    // Will Calling SignIn Action
-    dispatch(authProcess(requestData, "login"));
-
-    if(isLoggedIn) {
-        history.replace('/admin');
     }
 
-    emailRef.current.value = "";
-    passwordRef.current.value = "";
+    // Will Calling SignUp Action
+    dispatch(authProcess(requestData, "sign up"));
+    history.replace("/auth");
+
+    emailRef.current.value = '';
+    passwordRef.current.value = '';
+    
   };
 
   return (
     <section className={classes.auth}>
-      <h1>Login</h1>
+      <h1>Sign up</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
@@ -47,23 +44,17 @@ const Login = () => {
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
           <input type="password" id="password" required ref={passwordRef} />
-          <Link to="/auth/forget">
-            <div className={classes.forgotten}>Forgot Password</div>
-          </Link>
         </div>
         <div className={classes.actions}>
-          <button style={{ marginBottom: "10px" }}>Login</button>
+          <button style={{ marginBottom: "10px" }}>Sign up</button>
 
-          <Link to='/auth/signup'>
-            <div className={classes.sign_up}>
-                Create new account
-            </div>
+          <Link to="/auth">
+            <div className={classes.sign_up}>Login Page</div>
           </Link>
-
         </div>
       </form>
     </section>
   );
 };
 
-export default Login;
+export default Signup;

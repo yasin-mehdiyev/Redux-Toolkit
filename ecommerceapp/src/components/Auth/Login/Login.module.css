@@ -37,9 +37,9 @@
   }
 
   .control .forgotten, .actions .sign_up {
-    text-decoration: underline;
-    color: #f2f2f2;
-    cursor: pointer;
+    text-decoration: underline!important;
+    color: #f2f2f2!important;
+    cursor: pointer!important;
   }
 
   .control .forgotten {

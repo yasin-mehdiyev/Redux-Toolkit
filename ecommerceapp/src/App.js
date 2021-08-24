@@ -1,12 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-// Includes Pages
-import Admin from "./pages/Admin/Home/AdminHome";
-import Home from "./pages/Home/Home";
-import UI from "./pages/UI/UI";
-import Bucket from "./pages/UI/Bucket";
 
 // Includes Spinner Package
 import Loader from "react-loader-spinner";
@@ -27,17 +21,24 @@ import {
   fetchCartData,
   sendRequestData,
 } from "./store/features/cart/cartAction";
-import AdminAdd from "./pages/Admin/Create/AdminAdd";
-import AdminEdit from "./pages/Admin/Edit/AdminEdit";
-import Login from "./pages/Auth/Login/LoginPage";
-import ForgetPage from "./pages/Auth/ForgottenPassword/ForgetPage";
+
+// Includes Lazy Loadings (Code Splitting)
+const Home = React.lazy(() => import("./pages/Home/Home"));
+const UI = React.lazy(() => import("./pages/UI/UI"));
+const Bucket = React.lazy(() => import("./pages/UI/Bucket"));
+const Admin = React.lazy(() => import("./pages/Admin/Home/AdminHome"));
+const AdminAdd = React.lazy(() => import("./pages/Admin/Create/AdminAdd"));
+const AdminEdit = React.lazy(() => import("./pages/Admin/Edit/AdminEdit"));
+const LoginPage = React.lazy(() => import("./pages/Auth/Login/LoginPage"));
+const SignupPage = React.lazy(() => import("./pages/Auth/Signup/SignupPage"));
+const ForgetPage = React.lazy(() => import("./pages/Auth/ForgottenPassword/ForgetPage"));
 
 const App = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const loading = useSelector((state) => state.ui.loading);
-
+  const hasToggleCart = useSelector((state) => state.ui.isToggleCart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   // Fetching Cart and Food Data
@@ -60,73 +61,98 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {loading ? (
-        <div className="loading">
-          <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
-        </div>
-      ) : (
-        <>
-          <ToastContainer autoClose={2000} position="bottom-right" />
+      <Suspense
+        fallback={
+          loading ? (
+            <div className="loading">
+              <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+            </div>
+          ) : null
+        }
+      >
+        {loading ? (
+          <div className="loading">
+            <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+          </div>
+        ) : (
+          <>
+            <ToastContainer autoClose={2000} position="bottom-right" />
 
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
 
-            <Route path="/cabinet">
-              <Redirect to="/" />
-            </Route>
+              <Route path="/cabinet">
+                <Redirect to="/" />
+              </Route>
 
-            <Route path="/ui" exact>
-              <UI />
-            </Route>
+              <Route path="/ui" exact>
+                <UI />
+              </Route>
 
-            <Route path="/ui/cart">
-              <Bucket />
-            </Route>
+              <Route path="/ui/cart" exact>
+                { hasToggleCart && <Bucket /> }
+                { !hasToggleCart && <Redirect to='/ui' /> }
+                
+              </Route>
 
-            {isLoggedIn && (
-              <Switch>
-                <Route path="/admin" exact>
-                  <Admin />
-                </Route>
+              <Route path="/ui/cart/*">
+                <Redirect to='/ui' />
+              </Route>
 
-                <Route path="/admin/add">
-                  <AdminAdd />
-                </Route>
+              {isLoggedIn && (
+                <Switch>
+                  <Route path="/admin" exact>
+                    <Admin />
+                  </Route>
 
-                <Route path="/admin/edit/:id">
-                  <AdminEdit />
-                </Route>
+                  <Route path="/admin/add">
+                    <AdminAdd />
+                  </Route>
 
-                <Route path="*">
-                  <Redirect to="/admin" />
-                </Route>
-              </Switch>
-            )}
+                  <Route path="/admin/edit/:id">
+                    <AdminEdit />
+                  </Route>
 
-            {!isLoggedIn && (
-              <Switch>
-                <Route path="/auth" exact>
-                  <Login />
-                </Route>
+                  <Route path="*">
+                    <Redirect to="/admin" />
+                  </Route>
+                </Switch>
+              )}
 
-                <Route path="/auth/forget" exact>
-                  <ForgetPage />
-                </Route>
+              {!isLoggedIn && (
+                <Switch>
+                  <Route path="/auth" exact>
+                    <LoginPage />
+                  </Route>
 
-                <Route path="/auth/forget/*">
-                  <Redirect to="/" />
-                </Route>
+                  <Route path="/auth/signup" exact>
+                    <SignupPage />
+                  </Route>
 
-                <Route path="/*">
-                  <Redirect to="/" />
-                </Route>
-              </Switch>
-            )}
-          </Switch>
-        </>
-      )}
+                  <Route path="/auth/signup/*">
+                    <Redirect to="/auth" />
+                  </Route>
+
+                  <Route path="/auth/forget" exact>
+                    <ForgetPage />
+                  </Route>
+
+                  <Route path="/auth/forget/*">
+                    <Redirect to="/auth" />
+                  </Route>
+
+                  <Route path="/*">
+                    <Redirect to="/" />
+                  </Route>
+                </Switch>
+              )}
+
+            </Switch>
+          </>
+        )}
+      </Suspense>
     </React.Fragment>
   );
 };

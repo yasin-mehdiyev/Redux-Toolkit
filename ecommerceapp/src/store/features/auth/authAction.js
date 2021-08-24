@@ -1,14 +1,18 @@
 import { toast } from "react-toastify";
 import { setLogin, setLogout } from "./authSlice";
+import authApiKey from "../../../helpers/authApiKey";
 
 export const authProcess = (data, method) => async (dispatch) => {
     let url = '';
 
     if (method === 'login') {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAd3z5KyQ1NWzF2SVuaMsQBa6PKlvlsRdI';
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${authApiKey}`;
+    }
+    else if(method === 'sign up') {
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${authApiKey}`;
     }
     else if(method === 'sent reset link to email') {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAd3z5KyQ1NWzF2SVuaMsQBa6PKlvlsRdI';
+        url = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${authApiKey}`;
     }
 
     const handlerAuth = async () => {

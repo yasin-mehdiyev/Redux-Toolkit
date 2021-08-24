@@ -1,14 +1,11 @@
 import React from 'react';
 import classes from './Home.module.css';
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
-    const dispatch = useDispatch();
-    const history = useHistory();
 
     return (
         <div className={classes.wrapper}>

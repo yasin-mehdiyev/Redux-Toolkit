@@ -4,8 +4,8 @@ import { toggleHandler } from "../../../store/features/ui/uiSlice";
 import { Link } from 'react-router-dom';
 
 const CartButton = () => {
+  
   const dispatch = useDispatch();
-
   const hasToggleCart = useSelector((state) => state.ui.isToggleCart);
   const totalQuantity = useSelector(state => state.cart.totalQuantity);
 
